@@ -39,7 +39,7 @@ jobs:
           git config user.name "eipo-monitor-bot"
           git config user.email "bot@users.noreply.github.com"
           git fetch origin main
+          git reset --soft origin/main
           git add seen_ipos.json
           git diff --cached --quiet || git commit -m "Update seen_ipos.json"
-          git rebase origin/main || (git rebase --abort && git reset --soft origin/main && git add seen_ipos.json && git commit -m "Update seen_ipos.json")
-          git push origin HEAD:main
+          git push origin HEAD:main --force-with-lease

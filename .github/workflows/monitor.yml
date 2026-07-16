@@ -2,15 +2,12 @@ name: Monitor e-IPO
 
 on:
   schedule:
+    # Jalan tiap 30 menit (waktu UTC). Sesuaikan sesuai kebutuhan.
     - cron: "*/30 * * * *"
-  workflow_dispatch: {}
+  workflow_dispatch: {}   # supaya bisa dijalankan manual dari tab Actions
 
 permissions:
-  contents: write
-
-concurrency:
-  group: monitor-eipo
-  cancel-in-progress: false
+  contents: write   # perlu untuk commit seen_ipos.json balik ke repo
 
 jobs:
   check:
@@ -38,8 +35,6 @@ jobs:
         run: |
           git config user.name "eipo-monitor-bot"
           git config user.email "bot@users.noreply.github.com"
-          git fetch origin main
-          git reset --soft origin/main
           git add seen_ipos.json
           git diff --cached --quiet || git commit -m "Update seen_ipos.json"
-          git push origin HEAD:main --force-with-lease
+          git push

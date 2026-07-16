@@ -1,0 +1,45 @@
+name: Monitor e-IPO
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: monitor-eipo
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run monitor
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+        run: python monitor.py
+
+      - name: Commit updated state
+        run: |
+          git config user.name "eipo-monitor-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git fetch origin main
+          git reset --soft origin/main
+          git add seen_ipos.json
+          git diff --cached --quiet || git commit -m "Update seen_ipos.json"
+          git push origin HEAD:main --force-with-lease

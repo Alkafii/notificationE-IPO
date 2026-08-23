@@ -1,4 +1,11 @@
 {
+  "355": {
+    "id": "355",
+    "slug": "swap-pt-swayasa-prakarsa-tbk",
+    "name": "swap-pt-swayasa-prakarsa-tbk",
+    "status": "-",
+    "url": "https://e-ipo.co.id/id/ipo/355/swap-pt-swayasa-prakarsa-tbk"
+  },
   "351": {
     "id": "351",
     "slug": "emmi-pt-esa-medika-mandiri-tbk",
@@ -75,12 +82,5 @@
     "name": "emas-pt-merdeka-gold-resources-tbk",
     "status": "-",
     "url": "https://e-ipo.co.id/id/ipo/344/emas-pt-merdeka-gold-resources-tbk"
-  },
-  "337": {
-    "id": "337",
-    "slug": "chek-pt-diastika-biotekindo-tbk",
-    "name": "chek-pt-diastika-biotekindo-tbk",
-    "status": "-",
-    "url": "https://e-ipo.co.id/id/ipo/337/chek-pt-diastika-biotekindo-tbk"
   }
 }
